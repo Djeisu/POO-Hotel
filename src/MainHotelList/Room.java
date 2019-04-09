@@ -1,7 +1,8 @@
+package MainHotelList;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Rom {
+public class Room {
 	private int id;
 	private boolean status;
 	private double price;
@@ -12,25 +13,25 @@ public class Rom {
 		this.reservations = new ArrayList<Reservation>();
 	}
 	
-	Rom(){
+	Room(){
 		this.init();
 	}
 	
-	Rom(int i){
+	Room(int i){
 		this.init();
 		this.setId(i);
 		this.setPrice(0);
 		this.setStatus(false);
 	}
 	
-	Rom(int i, boolean st){
+	Room(int i, boolean st){
 		this.init();
 		this.setId(i);
 		this.setPrice(0);
 		this.setStatus(st);
 	}
 	
-	Rom(int i, boolean st, double pr){
+	Room(int i, boolean st, double pr){
 		this.init();
 		this.setId(i);
 		this.setPrice(pr);
@@ -79,5 +80,21 @@ public class Rom {
 	
 	public double getFullCash() {
 		return this.getPrice()*this.getReservations().size();
+	}
+	
+	public boolean removeResevation(){
+		if(!this.isStatus())
+			this.setStatus(true);
+		
+		return this.isStatus();
+	}
+	
+	public boolean addNewResevation(Reservation r){
+		if(this.isStatus()){
+			this.setStatus(false);
+			return this.setReservations(r);			
+		}
+		
+		return false;
 	}
 }

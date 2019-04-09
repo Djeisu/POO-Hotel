@@ -1,14 +1,19 @@
+package MainHotelList;
 
 public class Reservation {
 	private int idUser;
-	private int idRom;
+	private int idRoom;
 	private String date;
 	
 	public Reservation() {}
 	
+	public Reservation(int idU) {
+		this.setIdUser(idU);
+	}
+	
 	public Reservation(int idU, int idR, String d) {
 		this.setIdUser(idU);
-		this.setIdRom(idR);
+		this.setIdRoom(idR);
 		this.setDate(d);
 	}
 
@@ -20,12 +25,12 @@ public class Reservation {
 		this.idUser = idUser;
 	}
 
-	public int getIdRom() {
-		return idRom;
+	public int getIdRoom() {
+		return idRoom;
 	}
 
-	public void setIdRom(int idRom) {
-		this.idRom = idRom;
+	public void setIdRoom(int idRoom) {
+		this.idRoom = idRoom;
 	}
 
 	public String getDate() {
