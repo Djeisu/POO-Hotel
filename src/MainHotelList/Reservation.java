@@ -8,12 +8,12 @@ public class Reservation {
 	public Reservation() {}
 	
 	public Reservation(int idU) {
-		this.setIdUser(idU);
+		this.setIdRoom(idU);
 	}
 	
-	public Reservation(int idU, int idR, String d) {
-		this.setIdUser(idU);
+	public Reservation(int idR, int idU, String d) {
 		this.setIdRoom(idR);
+		this.setIdUser(idU);
 		this.setDate(d);
 	}
 

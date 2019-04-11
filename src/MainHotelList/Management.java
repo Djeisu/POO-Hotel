@@ -2,6 +2,9 @@ package MainHotelList;
 import java.util.ArrayList;
 import java.util.List;
 
+import MainHotelList.Exceptions.RoomExceptionRoomAvailable;
+import MainHotelList.Exceptions.RoomExceptionValueNegative;
+
 public class Management {
 	private List<Room> Rooms;
 	
@@ -25,25 +28,21 @@ public class Management {
 		return this.Rooms.add(r);
 	}
 	
-	public void ReserveARoom(Reservation r) {
-		for (Room room : Rooms) {
+	public void ReserveARoom(Reservation r) throws RoomExceptionRoomAvailable{
+		for (Room room : Rooms) 
 			if(room.getId() == r.getIdRoom())
-				if(room.addNewResevation(r))
-					System.out.println("Reserva Realizada com Sucesso para o quarto " + r.getIdRoom() + " Inquilino " + r.getIdUser() + "\n" );
-				else
-					System.out.println("Quarto " + r.getIdRoom() + " Indiponível, por favor escolha outro quarto\n");
-		}	
+				room.addNewReservation(r);
+		
+		System.out.println("Reserva Realizada com Sucesso para o quarto " + r.getIdRoom() + " Inquilino " + r.getIdUser() + "\n" );				
 		System.out.println("-----------------------------------------------------------------");
 	}
 	
-	public void unReserveARoom(Reservation r){
-		for (Room room : Rooms) {
+	public void unReserveARoom(Reservation r) throws RoomExceptionRoomAvailable{
+		for (Room room : Rooms) 
 			if(room.getId() == r.getIdRoom())
-				if(room.removeResevation())
-					System.out.println("O quarto " + r.getIdRoom() + " está disponível\n" );
-				else
-					System.out.println("Algo deu errado, por favor tente novamente mais tarde!");
-		}	
+				room.removeReservation();		
+		
+		System.out.println("O quarto " + r.getIdRoom() + " está disponível\n" );
 		System.out.println("-----------------------------------------------------------------");
 	}
 	
@@ -55,7 +54,7 @@ public class Management {
 		System.out.println("-----------------------------------------------------------------");
 	}
 	
-	public void listRoomSettings(int id){
+	public void listRoomSettings(int id) throws RoomExceptionValueNegative{
 		for (Room Room : Rooms) {
 			if(Room.getId() == id)
 				System.out.println("Id: " + Room.getId() + " | Disponibilidade : " + Room.isStatus() + " | Preço : " + Room.getPrice());
@@ -64,14 +63,14 @@ public class Management {
 		System.out.println("-----------------------------------------------------------------");
 	}
 	
-	private void listReservationOfTheRoom(int id){
+	private void listReservationOfTheRoom(int id) throws RoomExceptionValueNegative{
 		for (Room Room : Rooms) {
-			if(Room.getId() == id){		
+			if(Room.getId() == id){
 				System.out.println("Reservas realizadas: " + Room.getReservations().size());
 				for (Reservation reserve : Room.getReservations()) {
 					System.out.println("ID Inquilino: " + reserve.getIdUser() + " | ID Quarto : " + reserve.getIdRoom() + " | Data : " + reserve.getDate());
 				}
-				System.out.println("Total R$ " + Room.getFullCash());
+				System.out.println("Lucro em relação ao preço do quarto R$ " + Room.getFullCash(20));
 			}
 		}
 		
